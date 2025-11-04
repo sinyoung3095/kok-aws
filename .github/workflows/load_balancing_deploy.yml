@@ -12,18 +12,18 @@ jobs:
     strategy:
       matrix:
         include:
-         - name: EC2_HOST1
-         - name: EC2_HOST2
+          - name: EC2_HOST1
+          - name: EC2_HOST2
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
     - name: Set HOST env var from secrets
-      run: echo "HOST=${{ secrets[matrix.name] }}">> $GITHUB_ENV
+      run: echo "HOST=${{ secrets[matrix.name] }}" >> $GITHUB_ENV
 
     - name: Debug EC2_HOST
-      run: echo "EC_HOST is ${{ secrets.EC2_HOST }}"
+      run: echo "EC2_HOST is ${{ secrets.EC2_HOST }}"
 
     - name: Set up SSH
       run: |
