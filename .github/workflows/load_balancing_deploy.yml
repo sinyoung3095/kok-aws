@@ -34,15 +34,15 @@ jobs:
 
     - name: Copy project to EC2
       run: |
-        rsync -avz -e "ssh -i ~/.ssd/id_rsa" . ${{ secrets.EC2_USER }}@$HOST:/home/ubuntu/actions-load-balancing-app
+        rsync -avz -e "ssh -i ~/.ssd/id_rsa" . ${{ secrets.EC2_USER }}@$HOST:/home/ubuntu/docker-kok
 
     - name: Build & Run Docker on EC2
       run: |
         ssh -i ~/.ssd/id_rsa ${{ secrets.EC2_USER }}@$HOST << EOF
-          cd /home/ubuntu/actions-load-balancing-app
-          docker stop actions-load-balancing-app || true
-          docker rm actions-load-balancing-app || true
-          docker rmi actions-load-balancing-app || true
+          cd /home/ubuntu/docker-kok
+          docker stop docker-kok || true
+          docker rm docker-kok || true
+          docker rmi docker-kok || true
           docker build --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
             --build-arg EC2_HOST=${{ secrets.EC2_HOST }} \
             --build-arg MAIL_ID=${{ secrets.MAIL_ID }} \
@@ -55,8 +55,8 @@ jobs:
             --build-arg KAKAO_CLIENT_SECRET=${{ secrets.KAKAO_CLIENT_SECRET }} \
             --build-arg NAVER_CLIENT_ID=${{ secrets.NAVER_CLIENT_ID }} \
             --build-arg NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }} \
-          -t actions-load-balancing-app .
-          docker run -d -p 80:10000 --name actions-load-balancing-app \
+          -t docker-kok .
+          docker run -d -p 80:10000 --name docker-kok \
             -e EC2_HOST=${{ secrets.EC2_HOST }} \
             -e MAIL_ID=${{ secrets.MAIL_ID }} \
             -e MAIL_PW="${{ secrets.MAIL_PW }}" \
@@ -69,7 +69,7 @@ jobs:
             -e NAVER_CLIENT_ID=${{ secrets.NAVER_CLIENT_ID }} \
             -e NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }} \
             -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
-            actions-load-balancing-app
+            docker-kok
             
     - name: Clean up not used images
       if: success()
