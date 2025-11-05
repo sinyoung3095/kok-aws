@@ -12,7 +12,7 @@ const experienceLayout = (() => {
 
         for (const exp of experiences) {
             const fileUrl = await fetch(`/api/experiences/profile?companyId=${exp.companyId}`)
-                                  .then(res => res.text());
+                .then(res => res.text());
 
             html += `
                 <div class="list-item">
@@ -54,11 +54,11 @@ function applyFilters() {
 
     // active 직군 버튼 p 텍스트
     const activeJobs = Array.from(document.querySelectorAll(".sector-dropdown .dropdown-btn.active > p"))
-                            .map(p => p.innerText.trim());
+        .map(p => p.innerText.trim());
 
     // active 규모 버튼 p 텍스트
     const activeScales = Array.from(document.querySelectorAll(".scale-dropdown .dropdown-btn.active > p"))
-                              .map(p => p.innerText.trim());
+        .map(p => p.innerText.trim());
 
     // 검색 키워드 가져오기
     const keyword = document.getElementById("keyword-input")?.value.trim() || "";
@@ -78,4 +78,3 @@ function applyFilters() {
         item.style.display = (jobMatch && scaleMatch && keywordMatch) ? "" : "none";
     });
 }
-

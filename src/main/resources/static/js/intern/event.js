@@ -456,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const shareBtn = e.target;
             const textBox = saveToast.querySelector("p");
             // 공유하기
-            let url = `http://localhost:10000/intern/list?sharedCompanyId=${shareBtn.dataset.companyid}&sharedInternId=${shareBtn.dataset.internid}`;
+            let url = `http://13.209.155.6/intern/list?sharedCompanyId=${shareBtn.dataset.companyid}&sharedInternId=${shareBtn.dataset.internid}`;
             const textarea = document.createElement("textarea");
             document.body.appendChild(textarea);
             textarea.value = url;

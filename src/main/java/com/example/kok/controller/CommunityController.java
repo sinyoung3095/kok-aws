@@ -2,9 +2,7 @@ package com.example.kok.controller;
 
 import com.example.kok.aop.aspect.annotation.LogReturnStatus;
 import com.example.kok.auth.CustomUserDetails;
-import com.example.kok.dto.AdvertisementDTO;
-import com.example.kok.dto.CompanyDTO;
-import com.example.kok.dto.ExperienceNoticeDTO;
+import com.example.kok.dto.*;
 import com.example.kok.enumeration.UserRole;
 import com.example.kok.service.*;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -29,6 +28,7 @@ public class CommunityController {
     private final MemberService memberService;
     private final AdvertisementService advertisementService;
     private final CompanyService companyService;
+    private final UserService userService;
 
     @GetMapping("/page")
     @LogReturnStatus
@@ -38,7 +38,7 @@ public class CommunityController {
 
         if(sharedPostId!=null){
             model.addAttribute("sharedPostId", sharedPostId);
-            System.out.println("sharedPostId: "+sharedPostId);
+//            System.out.println("sharedPostId: "+sharedPostId);
         }
         Long memberId = null;
 
@@ -50,8 +50,10 @@ public class CommunityController {
                 model.addAttribute("companyDTO", companyDTO);
             }
 
-            memberService.findMembersByMemberId(memberId)
-                    .ifPresent(userMemberDTO -> model.addAttribute("member", userMemberDTO));
+            if (customUserDetails.getUserRole() == UserRole.MEMBER) {
+                Optional<UserMemberDTO> userMemberDTO = memberService.findMembersByMemberId(memberId);
+                model.addAttribute("member", userMemberDTO);
+            }
         }
 
         model.addAttribute("posts", communityPostService.getList(1, memberId).getPosts());
