@@ -23,3 +23,4 @@ create table tbl_request_experience
     request_experience_member_url   varchar(255),
     request_experience_active       status         default 'active'::status        not null
 );
+select * from tbl_request_experience;
