@@ -160,7 +160,7 @@ public class InternRestController implements InternRestControllerDocs {
     }
 
     //    평가 있는지 여부
-    @GetMapping("/id-reviewed")
+    @GetMapping("/is-reviewed")
     public ResponseEntity<Boolean> isRequested(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         boolean result=evaluationService.isReviewed(customUserDetails.getId());
         return ResponseEntity.ok(result);
