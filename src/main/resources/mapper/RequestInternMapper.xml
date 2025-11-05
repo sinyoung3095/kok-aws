@@ -31,11 +31,24 @@
                       on c.user_id = n.company_id
                  join tbl_request_intern r
                       on n.id = r.intern_notice_id
-                 join tbl_evaluation e
-                      on r.id = e.request_experience_id
+                 left join tbl_evaluation e
+                           on r.id = e.request_experience_id
         where r.member_id = #{id}
         order by created_datetime desc
         limit 3
+    </select>
+
+    <!--  지원 목록 조회  -->
+    <select id="selectRequestCountById">
+        select count(*)
+        from tbl_company c
+                 join tbl_intern_notice n
+                      on c.user_id = n.company_id
+                 join tbl_request_intern r
+                      on n.id = r.intern_notice_id
+                 left join tbl_evaluation e
+                           on r.id = e.request_experience_id
+        where r.member_id = #{id}
     </select>
 
     <!--  인턴 지원 내역 조회  -->
@@ -61,12 +74,12 @@
         </if>
     </select>
 
-<!--    지원서 개수 조회-->
+    <!--    지원서 개수 조회-->
     <select id="countRequest">
         select count(*)
         from tbl_request_intern
         where intern_notice_id=#{internNoticeId}
-        and member_id=#{memberId}
-        and request_intern_active='active'
+          and member_id=#{memberId}
+          and request_intern_active='active'
     </select>
 </mapper>

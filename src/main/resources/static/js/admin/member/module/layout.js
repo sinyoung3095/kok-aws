@@ -17,13 +17,13 @@ const layout = (() => {
                             <div class="member-name">${userMemberDTO.userName}
                                 <span class="badge-label badge text-danger ml-2">일반회원</span>
                             </div>
-                            <div class="member-id">${userMemberDTO.userEmail}</div>
+                            <div class="member-id">${userMemberDTO.userEmail ?? '-'}</div>
                         </td>
                         <td class="td-amount pr-4 font-weight-bold">${userMemberDTO.userName}
                             <span class="amount-unit"> 님</span>
                         </td>
                         <td class="td-email">
-                            <p>${userMemberDTO.userEmail}</p>
+                            <p>${userMemberDTO.userEmail ?? '-'}</p>
                         </td>
                         <td class="td-phone">
                             <p>${userMemberDTO.userPhone}</p>
@@ -244,7 +244,7 @@ const layout = (() => {
                                                                     <tbody>
                                                                         <tr>
                                                                             <th>회원ID (이메일)</th>
-                                                                            <td>${result.userEmail}</td>
+                                                                            <td>${result.userEmail ?? '-'}</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <th>핸드폰 번호</th>
