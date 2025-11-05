@@ -547,7 +547,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const isReviewedPre=await fetch(`/api/interns/id-reviewed`);
-            const isReviewed=await isReviewedPre;
+            const isReviewed=await isReviewedPre.json();
             const isReviewedDetail=isReviewed;
 
             console.log(isReviewedDetail);
