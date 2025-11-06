@@ -70,7 +70,7 @@ jobs:
             -e NAVER_CLIENT_SECRET=${{ secrets.NAVER_CLIENT_SECRET }} \
             -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
             docker-kok
-
+            
     - name: Clean up not used images
       if: success()
       run: |
