@@ -1,5 +1,6 @@
 package com.example.kok.service;
 
+import com.example.kok.common.exception.MemberNotFoundException;
 import com.example.kok.domain.MemberVO;
 import com.example.kok.dto.*;
 import com.example.kok.repository.*;
@@ -89,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
         memberStorageFileDAO.deleteFileByFileId(fileId);
     }
 
-//    회원 전체조회
+    //    회원 전체조회
     @Override
     public AdminMemberCriteriaDTO findUserMembers(int page, String keyword) {
 
@@ -116,29 +117,48 @@ public class MemberServiceImpl implements MemberService {
         return adminMemberCriteriaDTO;
     }
 
-//    회원 아이디로 조회
+    //    회원 아이디로 조회
     @Override
-    public Optional<UserMemberDTO> findMembersByMemberId(Long memberId) {
-        return memberDAO.selectMember(memberId)
-                .map(userMemberDTO -> {
-                    List<RequestExperienceDTO> requestExperiences =
-                            requestExperienceDAO.selectAllRequestById(memberId);
-                    List<RequestInternDTO> requestInterns =
-                            requestInternDAO.selectAllInternById(memberId);
-                    List<PostDTO> posts =
-                            communityPostDAO.findPostById(memberId);
+    @Cacheable(value = "member", key = "'member_' + #memberId")
+    public UserMemberDTO findMembersByMemberId(Long memberId) {
+        UserMemberDTO userMemberDTO = memberDAO.selectMember(memberId)
+                .orElseThrow();
 
-                    int postsCount = communityPostDAO.findPostsCountByMemberId(memberId);
-                    userMemberDTO.setPostsCount(postsCount);
+        if (userMemberDTO == null) {
+            return null;
+        }
 
-                    int followingCount = followDAO.selectFollowingCountByMemberId(memberId);
-                    userMemberDTO.setFollowingCount(followingCount);
+//        멤버 아이디로 체험 지원 목록 최근 3개 조회
+        List<RequestExperienceDTO> requestExperiences =
+                requestExperienceDAO.selectAllRequestById(memberId);
+//        멤버 아이디로 인턴 지원서 최근 3개 조회
+        List<RequestInternDTO> requestInterns =
+                requestInternDAO.selectAllInternById(memberId);
+//        멤버 아이디로 게시물 최근 3개 조회
+        List<PostDTO> posts =
+                communityPostDAO.findPostById(memberId);
 
-                    userMemberDTO.setRequestExperiences(requestExperiences);
-                    userMemberDTO.setRequestInterns(requestInterns);
-                    userMemberDTO.setPosts(posts);
-                    return userMemberDTO;
-                });
+//        멤버 아이디로 체험 개수 조회
+        int requestExperienceCount = requestExperienceDAO.selectRequestCountById(memberId);
+
+//        멤버 아이디로 인턴 지원 개수 조회
+        int requestInternCount = requestInternDAO.selectRequestCountById(memberId);
+
+//        멤버 아이디로 게시물 작성 수 조회
+        int postsCount = communityPostDAO.findPostsCountByMemberId(memberId);
+        userMemberDTO.setPostsCount(postsCount);
+
+//        팔로우 수 조회
+        int followingCount = followDAO.selectFollowingCountByMemberId(memberId);
+        userMemberDTO.setFollowingCount(followingCount);
+
+        userMemberDTO.setRequestExperiences(requestExperiences);
+        userMemberDTO.setRequestInterns(requestInterns);
+        userMemberDTO.setRequestExperienceCount(requestExperienceCount);
+        userMemberDTO.setRequestInternCount(requestInternCount);
+        userMemberDTO.setPosts(posts);
+
+        return userMemberDTO;
     }
 
     @Override

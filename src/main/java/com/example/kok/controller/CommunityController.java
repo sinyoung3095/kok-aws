@@ -51,7 +51,7 @@ public class CommunityController {
             }
 
             if (customUserDetails.getUserRole() == UserRole.MEMBER) {
-                Optional<UserMemberDTO> userMemberDTO = memberService.findMembersByMemberId(memberId);
+                UserMemberDTO userMemberDTO = memberService.findMembersByMemberId(memberId);
                 model.addAttribute("member", userMemberDTO);
             }
         }

@@ -26,7 +26,7 @@ public interface MemberService {
     public AdminMemberCriteriaDTO findUserMembers(int page, String keyword);
 
 //    회원별 모든 이력 조회
-    public Optional<UserMemberDTO> findMembersByMemberId(Long memberId);
+    public UserMemberDTO findMembersByMemberId(Long memberId);
 
 //    지원한 체험 공고 조회
     public List<RequestExperienceDTO> findRequestExperienceByMemberId(Long memberId);

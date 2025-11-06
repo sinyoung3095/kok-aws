@@ -32,4 +32,6 @@ public class UserMemberDTO {
     private List<RequestInternDTO> requestInterns;
     private int postsCount;
     private int followingCount;
+    private int requestExperienceCount;
+    private int requestInternCount;
 }
