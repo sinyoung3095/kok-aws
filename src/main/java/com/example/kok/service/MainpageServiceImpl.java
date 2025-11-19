@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -117,5 +118,20 @@ public class MainpageServiceImpl implements MainpageService {
             }
         });
         return requestInternDTO;
+    }
+
+    @Override
+    public List<ExperienceNoticeDTO> findRecommend(List<Long> ids) {
+        List<ExperienceNoticeDTO> noticeDTOS = new ArrayList<>();
+        for(Long id : ids){
+            noticeDTOS.add(experienceNoticeDAO.findAllByRecommend(id));
+        }
+        noticeDTOS.forEach(experienceNoticeDTO -> {
+            if(companyProfileFileDAO.findFileByCompanyId(experienceNoticeDTO.getCompanyId())==null){}
+            else{
+                experienceNoticeDTO.setFilePath(s3Service.getPreSignedUrl(companyProfileFileDAO.findFileByCompanyId(experienceNoticeDTO.getCompanyId()).getFilePath(), Duration.ofMinutes(10)));
+            }
+        });
+        return noticeDTOS;
     }
 }

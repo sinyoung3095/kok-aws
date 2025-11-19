@@ -38,4 +38,5 @@ public interface ExperienceNoticeMapper {
 //    체험 공고 리스트 조회
     public List<ExperienceNoticeDTO> selectAllByKeyword(String keyword);
     public ExperienceNoticeDTO selectCompanyNameById(Long id);
+    public ExperienceNoticeDTO selectAllByRecommend(Long id);
 }

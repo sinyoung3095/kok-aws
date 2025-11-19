@@ -14,4 +14,5 @@ public interface MainpageService {
     public CustomUserDetails findProfile(CustomUserDetails customUserDetails);
     public List<RequestExperienceDTO> findRequestExperienceByCompanyId(Long companyId,Long experienceId);
     public List<RequestInternDTO> findRequestInternByCompanyId(Long userId,Long internId);
+    public List<ExperienceNoticeDTO> findRecommend( List<Long> ids);
 }

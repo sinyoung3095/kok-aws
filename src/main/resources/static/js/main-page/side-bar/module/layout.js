@@ -230,5 +230,42 @@ const sideLayout = (()=>{
         `;
         supportDetailWrap.innerHTML = text;
     }
-    return{showPopularCompany:showPopularCompany,showExperience:showExperience,showIntern:showIntern,showLink:showLink,showSupport:showSupport,showSupportDetail:showSupportDetail}
+    const showRecommend = (ExperienceNoticeDTO)=>{
+        const recommendWarp = document.getElementById("recommendWarp");
+        let text ='';
+        ExperienceNoticeDTO.forEach((ExperienceNoticeDTO,i)=>{
+            if(ExperienceNoticeDTO.filePath===null){
+                text+=
+                    `
+                    <a style="cursor: pointer" onclick="window.location.href='/experience/list?sharedCompanyId=${ExperienceNoticeDTO.companyId}&sharedInternId=${ExperienceNoticeDTO.id}'">
+                        <div class="search-modal-list-section" data-id="${ExperienceNoticeDTO.id}">
+                            <span class="search-modal-list-number">${i+1}</span>
+                            <img alt="image" width="40" height="40"  src="/images/main-page/image.png" style="color: transparent; border-radius: 999px; cursor: default; max-height: 40px; max-width: 40px; min-height: 40px; min-width: 40px; object-fit: contain;">
+                            <div class="search-modal-list-member">
+                                <span class="search-modal-list-name">${ExperienceNoticeDTO.companyName}</span>
+                                <p class="search-modal-list-job">${ExperienceNoticeDTO.experienceNoticeTitle}</p>
+                            </div>
+                        </div>
+                    </a>`
+            }else{
+                text+=
+                    `
+                    <a style="cursor: pointer" onclick="window.location.href='/experience/list?sharedCompanyId=${ExperienceNoticeDTO.companyId}&sharedExperienceId=${ExperienceNoticeDTO.id}'">
+                        <div class="search-modal-list-section" data-id="${ExperienceNoticeDTO.id}">
+                            <span class="search-modal-list-number">${i+1}</span>
+                            <img alt="image" width="40" height="40"  src="${ExperienceNoticeDTO.filePath}" style="color: transparent; border-radius: 999px; cursor: default; max-height: 40px; max-width: 40px; min-height: 40px; min-width: 40px; object-fit: contain;">
+                            <div class="search-modal-list-member">
+                                <span class="search-modal-list-name">${ExperienceNoticeDTO.companyName}</span>
+                                <p class="search-modal-list-job">${ExperienceNoticeDTO.experienceNoticeTitle}</p>
+                            </div>
+                        </div>
+                    </a>
+                    `
+            }
+
+        });
+        recommendWarp.innerHTML=text;
+
+    }
+    return{showPopularCompany:showPopularCompany,showExperience:showExperience,showIntern:showIntern,showLink:showLink,showSupport:showSupport,showSupportDetail:showSupportDetail,showRecommend:showRecommend}
 })();

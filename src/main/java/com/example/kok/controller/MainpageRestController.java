@@ -87,5 +87,9 @@ public class MainpageRestController implements MainpageRestControllerDocs {
         log.info(memberDAO.findLink(customUserDetails.getUserPhone()).toString());
         return memberDAO.findLink(customUserDetails.getUserPhone());
     }
+    @GetMapping("recommend")
+    public List<ExperienceNoticeDTO> recommend(@RequestParam(required = false) List<Long> ids){
+        return mainpageService.findRecommend(ids);
+    }
 
 }

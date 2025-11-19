@@ -8,6 +8,22 @@ openSearchBtn.addEventListener("click", async () => {
     searchModal.classList.add("active");
     await sideService.getExperience(sideLayout.showExperience);
     await sideService.getPopularCompany(sideLayout.showPopularCompany);
+
+    const experienceNoticeDTO = await (await fetch("/api/main/experience")).json();
+    const requestExperienceDTO = await (await fetch("/api/main/requestExperience")).json();
+    console.log(experienceNoticeDTO)
+
+    const response = await fetch("http://localhost:8000/api/recommend",{
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({experienceNoticeList:experienceNoticeDTO,requestExperienceList:requestExperienceDTO})
+    })
+
+    const result = await response.json()
+    console.log(result.id)
+    await sideService.getRecommend(sideLayout.showRecommend,result.id);
 });
 
 searchCloseBtn.addEventListener("click", () => {

@@ -61,4 +61,7 @@ public class ExperienceNoticeDAO {
     public ExperienceNoticeDTO findCompanyNameById(Long id){
         return experienceNoticeMapper.selectCompanyNameById(id);
     }
+    public ExperienceNoticeDTO findAllByRecommend(Long id) {
+        return experienceNoticeMapper.selectAllByRecommend(id);
+    }
 }

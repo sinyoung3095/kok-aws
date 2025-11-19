@@ -169,4 +169,10 @@
         where e.id=#{id}
           and e.experience_notice_status='active'
     </select>
+    <select id="selectAllByRecommend">
+        select e.experience_notice_title,e.id,c.company_name,e.company_id from tbl_experience_notice e join tbl_company c
+                                                                                                            on e.company_id = c.user_id
+        where e.experience_notice_status = 'active' and e.id = #{id}
+        order by created_datetime desc
+    </select>
 </mapper>

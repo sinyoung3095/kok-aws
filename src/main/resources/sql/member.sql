@@ -10,3 +10,5 @@ create table tbl_member
     member_profile_url varchar(255),
     member_info        text
 );
+
+select * from tbl_member;
