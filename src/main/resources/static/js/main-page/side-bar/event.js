@@ -13,7 +13,7 @@ openSearchBtn.addEventListener("click", async () => {
     const requestExperienceDTO = await (await fetch("/api/main/requestExperience")).json();
     console.log(experienceNoticeDTO)
 
-    const response = await fetch("http://localhost:8000/api/recommend",{
+    const response = await fetch("https://springer-mixing-bull-handmade.trycloudflare.com/api/recommend",{
         method: "POST",
         headers: {
             "Content-Type":"application/json"
