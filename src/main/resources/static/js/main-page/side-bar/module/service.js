@@ -62,7 +62,7 @@ console.log(alarmDTO);
     const setActive = async (keyword)=>{
         const response = await fetch("/api/main/active",{
             method:'PATCH',
-            body: JSON.stringify(keyword),
+            body: JSON.stringify({keyword:keyword}),
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -76,7 +76,7 @@ console.log(alarmDTO);
         console.log(keyword);
         const response = await fetch("/api/main/inactive",{
             method:'PATCH',
-            body: JSON.stringify(keyword),
+            body: JSON.stringify({keyword:keyword}),
             headers: {
                 'Content-Type': 'application/json'
             }
