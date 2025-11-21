@@ -5,6 +5,7 @@ import com.example.kok.dto.MemberAlarmSettingDTO;
 import com.example.kok.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -17,9 +18,9 @@ public interface MemberAlarmSettingMapper {
 //    멤버 id로 멤버 알람 조회
     public MemberAlarmSettingDTO selectAllByMemberId(Long memberId);
 //    멤버 알람 활성화
-    public void updateByKeywordToActive(Long id, String keyword);
+    public void updateByKeywordToActive(@Param("id") Long id, @Param("keyword") String keyword);
 //    멤버 알람 비활성화
-    public void updateByKeywordToInactive(Long id, String keyword);
+    public void updateByKeywordToInactive(@Param("id") Long id, @Param("keyword") String keyword);
 //    멤버 체험 공고 알람 보내기 위한 아이디 조회
     public List<UserDTO> selectByNoticeId(Long od);
     public List<UserDTO> selectByInturnNoticeId(Long od);

@@ -20,12 +20,12 @@
     <update id="updateByKeywordToActive">
         update tbl_member_alarm_setting
         set ${keyword} = 'active'
-        where id = ${id}
+        where member_id = #{id}
     </update>
     <update id="updateByKeywordToInactive">
         update tbl_member_alarm_setting
         set ${keyword} = 'inactive'
-        where id = ${id}
+        where member_id = #{id}
     </update>
     <!--  공고 id로 알림 보낼 email 조회  -->
     <select id="selectByNoticeId">
