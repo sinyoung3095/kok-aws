@@ -9,7 +9,7 @@ const memberService = (()=>{
             });
 
             if (!response.ok) {
-                location.href='/member/login'
+                location.href='/member/login?fail'
 
                 const errorText = await response.text();
                 throw new Error(errorText || "Fetch error");
