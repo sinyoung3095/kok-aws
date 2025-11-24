@@ -45,7 +45,7 @@ public class MailService {
                 "</strong>님,<br>아래 버튼을 클릭하여 이메일 인증을 완료해 주세요.</p>");
 
         body.append("<div style='text-align:center; margin:40px 0;'>");
-        body.append("<a href='http://localhost:10000/mail/find-password-ok?code=" + code +
+        body.append("<a href='http://kok-on.shop/mail/find-password-ok?code=" + code +
                 "' style='display:inline-block; background-color:#4A7BFF; color:#ffffff; padding:14px 28px; text-decoration:none; border-radius:6px; font-size:16px; font-weight:bold;'>");
         body.append("인증하러 가기</a></div>");
 
