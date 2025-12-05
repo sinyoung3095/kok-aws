@@ -8,7 +8,7 @@ create table tbl_experience_notice
     experience_notice_etc           varchar(255) not null,
     experience_start_date           date         not null,
     experience_end_date             date         not null,
-    experience_notice_status        status    default 'inactive'::status,
+    experience_notice_status        status    default 'active'::status,
     created_datetime                timestamp default now(),
     updated_datetime                timestamp default now(),
     company_id                      bigint       not null

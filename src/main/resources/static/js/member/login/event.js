@@ -19,7 +19,7 @@ closeOutline.addEventListener("click",(e)=>{
 })
 
 if(window.location.search.includes("fail")){
-    alert("입력하신 정보가 없습니다.")
+    alert("정보가 일치하지 않습니다.")
 }
 
 // 일반 로그인
