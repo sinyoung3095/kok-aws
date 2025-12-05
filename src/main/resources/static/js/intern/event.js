@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const dropdown = document.querySelectorAll(".dropdown-container");
         const dropdownBtns = document.querySelectorAll(".dropdown-btn");
 
-        if (!dropdown) return;
+        // if (!dropdown) return;
 
         dropdownBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
